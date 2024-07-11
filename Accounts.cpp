@@ -32,11 +32,25 @@ public:
         amount = a;
         account_type = ty;
     }
+    Account(const Account & ac){
+        this->account_number = ac.account_number;
+        this->account_type = ac.account_type;
+        this->amount = ac.amount;
+        this->email = ac.email;
+        this->creation_time = ac.creation_time;
+    }
 };
 //Derived Class for all the current accounts
 class CurrentAccount:public Account{
     public:
     CurrentAccount(string e,int ty,int a,Date t) :Account(e,ty,a,t){
+    }
+    CurrentAccount(const CurrentAccount & cu){
+        this->email = cu.email;
+        this->account_number = cu.account_number;
+        this->account_type = cu.account_type;
+        this->amount = cu.amount;
+        this->creation_time = cu.creation_time;
     }
 };
 //Derived Class for all the Savings Account
@@ -48,6 +62,16 @@ class SavingsAccount:public Account{
     SavingsAccount(string e,int ty,int a ,Date t) :Account(e,ty,a,t){
         expiry_date = t;
         expiry_date.year += 16;
+    }
+    SavingsAccount (const SavingsAccount& sv){
+        this->account_number = sv.account_number;
+        this->account_type = sv.account_type;
+        this->amount = sv.amount;
+        this->Cardnumber = sv.Cardnumber;
+        this->creation_time = sv.creation_time;
+        this->cvv = sv.cvv;
+        this->email = sv.email;
+        this->expiry_date = sv.expiry_date;
     }
 };
 //Derived Class for all the LoanAccounts
@@ -72,6 +96,17 @@ class LoanAccount:public Account{
         loan_duration = duration;
         amount_due = amount;
     } 
+    LoanAccount(const LoanAccount& la){
+        this->account_number = la.account_number;
+        this->account_type = la.account_type;
+        this->amount = la.amount;
+        this->amount_due = la.amount_due;
+        this->creation_time = la.creation_time;
+        this->email = la.email;
+        this->interest = la.interest;
+        this->loan_duration = la.loan_duration;
+        this->ltype = la.ltype;
+    }
 };
 // Transaction class to store each type of the transactions
 /* Here there are three types of the transactions
