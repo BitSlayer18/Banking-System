@@ -28,4 +28,12 @@ class Transaction{
         type_of_transaction = type_of_transactio;
         d1 = d;
     }
+    Transaction(const Transaction& trans){
+        this->account_number = trans.account_number;
+        this->account_type = trans.account_type;
+        this->email = trans.email;
+        this->amount = trans.amount;
+        this->d1 = trans.d1;
+        this->type_of_transaction = trans.type_of_transaction;
+    }
 };
