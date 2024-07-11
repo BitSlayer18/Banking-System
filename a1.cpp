@@ -124,6 +124,7 @@ int main(){
                 cout << "Age :" << current_customer.age << endl;
                 cout << "Phone number: " << current_customer.phone_number << endl;
                 cout << "Adress: " << current_customer.address << endl;
+                cout << "Date of birth:" << current_customer.birth_date.day<< "/" << current_customer.birth_date.month << "/" << current_customer.birth_date.year<< endl;
             }
             else if(initial_input == 2){
                 if(current_customer.Current_Accounts.size() != 0){
@@ -155,8 +156,11 @@ int main(){
                 cin >> ac_number;
                 cout << "Enter the amount you wish to withdraw" << endl;
                 cin >> amount_w;
+                bool is_present = false;
                 for(auto &a :current_customer.Current_Accounts){
                     if(a.account_number == ac_number && a.amount >= amount_w){
+                        is_present = true;
+                        is_present = true;
                         a.amount -= amount_w;
                         a.amount -= max(double(500),0.005*amount_w);
                         int penalty_months = 0;
@@ -171,16 +175,18 @@ int main(){
                         Transaction t(current_customer.email,amount_w,a.account_number,0,0,today);
                         current_customer.transaction_history.push_back(t);
                     }
-                    else cout << "Insufficient account balance" << endl;
                 }
+                if(!is_present) cout << "Either no Current Account exists or there is insufficient balance in the account" << endl;
                 for(auto &a :current_customer.Savings_Accounts){
                     if(a.account_number == ac_number && a.amount >= amount_w){
+                        is_present = true;
+                        is_present = true;
                         a.amount -= amount_w;
                         Transaction t(current_customer.email,amount_w,a.account_number,1,0,today);
                         current_customer.transaction_history.push_back(t);
                     }
-                    else cout << "Insufficient account balance" << endl;
                 }
+                if(!is_present) cout << "Either no Savings Account exists or there is insufficient balance in the account" << endl;
             }
             else if(initial_input == 4){
                 string ac_number;int amount_d;
@@ -188,15 +194,19 @@ int main(){
                 cin >> ac_number;
                 cout << "Enter the amount you wish to deposit" << endl;
                 cin >> amount_d;
+                bool is_present = false;
                 for(auto &a :current_customer.Current_Accounts){
                     if(a.account_number == ac_number){
+                        is_present = true;
                         a.amount += amount_d;
                         Transaction t(current_customer.email,amount_d,a.account_number,0,1,today);
                         current_customer.transaction_history.push_back(t);
                     }
                 }
+                if(!is_present) cout << "No Current account with mentioned account number exists" << endl;
                 for(auto &a :current_customer.Savings_Accounts){
                     if(a.account_number == ac_number){
+                        is_present = true;
                         a.amount += amount_d;
                         Transaction t(current_customer.email,amount_d,a.account_number,1,1,today);
                         for(auto &tr:current_customer.transaction_history){
@@ -210,6 +220,7 @@ int main(){
                         current_customer.transaction_history.push_back(t);
                     }
                 }
+                if(!is_present) cout << "No Savings account with mentioned account number exists" << endl;
             }
             else if(initial_input == 5){
                 string ac_number;int loan_installment;
@@ -217,17 +228,22 @@ int main(){
                 cin >> ac_number;
                 cout << "Enter the amount of installment you wish to pay(must be less than 10%)" << endl;
                 cin >> loan_installment;
+                bool is_present = false;
                 for(auto &a:current_customer.Loan_Accounts){
                     if(a.account_number == ac_number){
+                        is_present = true;
                         if(loan_installment > 0.1*a.amount) cout << "You can't pay more than 10% of the loan amount at once" << endl;
                         else{
                             a.amount_due -= min(loan_installment,a.amount_due);
                             Transaction t(current_customer.email,loan_installment,a.account_number,2,2,today);
                             current_customer.transaction_history.push_back(t);
                         }
-                        if(a.amount_due == 0) cout << "Your loan is paid successfully";
+                        if(a.amount_due == 0) cout << "Your loan is paid successfully" << endl;
+                        int diff = 2*(today.year - a.creation_time.year);
+                        a.amount=a.amount*pow((1+(a.interest/200)),(diff));
                     }
                 }
+                if(!is_present) cout << "No Loan account with mentioned account number exists" << endl;
             }
             else if(initial_input == 6){
                 cout << "Terminating current session..." << endl;

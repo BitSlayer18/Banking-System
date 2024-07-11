@@ -9,6 +9,58 @@ using namespace std;
 struct Date{
     int day,month,year;
 };
+bool is_phone_valid(string phone){
+    if(phone.length() != 10) return false;
+    for(char c:phone){
+        if(c - '0' < 0 || c - '0' > 9){
+            return false;
+        }
+    }
+    return true;
+}
+bool is_Valid_Email(string email) {
+    if (email.find(' ') != string::npos) return false;
+    size_t atPos = email.find('@');
+    size_t dotPos = email.find('.', atPos);
+    return atPos != string::npos && dotPos != string::npos &&
+           atPos > 0 && dotPos > atPos + 1 &&
+           dotPos < email.length() - 1 &&
+           email[atPos - 1] != '.' && email[atPos + 1] != '.';
+}
+
+bool isLeapYear(int year) {
+    if(year % 4 == 0) {
+        if(year % 100 == 0) {
+            if(year % 400 == 0)
+                return true;
+            else
+                return false;
+        }else
+            return true;
+    }else
+        return false;
+}
+
+bool isValid(Date date) {
+    if(date.year < 1) return false;
+    if(date.month < 1 || date.month > 12) return false;
+    int days;
+    switch (date.month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            days = 31;
+            break;
+        case 4: case 6: case 9: case 11:
+            days = 30;
+            break;
+        case 2:
+            days = isLeapYear(date.year) ? 29 : 28;
+            break;
+        default:
+            return false;
+    }
+    if(date.day < 1 || date.day > days) return false;
+    return true;
+}
 unordered_set <string> cardnumbers; 
 int getid (string name){
     int ans = 0;
