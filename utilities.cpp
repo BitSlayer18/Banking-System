@@ -12,13 +12,17 @@ struct Date{
 unordered_set <string> cardnumbers; 
 int getid (string name){
     int ans = 0;
+    int base = 1;
+    //some prime number  larger will be good
+    int val = 7;
     vector<int>letter(26);
     letter[0] = 1;
     for(int i = 1;i < 26;i++){
         letter[i] = letter[i - 1]*2 + i + 1;
     }
     for(char c:name){
-        ans += letter[c - 'a'];
+        ans += (letter[c - 'a'] *base);
+        base *= val;
     }
     return ans;
 }
