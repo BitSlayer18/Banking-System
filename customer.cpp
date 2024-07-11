@@ -46,6 +46,20 @@ public:
             //count++;
             cout << "Try " << email_new << " as your new email" << endl;
             email = email_new;
-        }
+        }   
+    }
+    Customer(const Customer & ct){
+        this->address = ct.address;
+        this->age = ct.age;
+        this->birth_date = ct.birth_date;
+        this->Current_Accounts = ct.Current_Accounts;
+        this->customerId = ct.customerId;
+        this->email = ct.email;
+        this->firstName = ct.firstName;
+        this->lastName = ct.lastName;
+        this->Loan_Accounts = ct.Loan_Accounts;
+        this->phone_number = ct.phone_number;
+        this->Savings_Accounts = ct.Savings_Accounts;
+        this->transaction_history = ct.transaction_history;
     }
 };
