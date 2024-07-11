@@ -45,7 +45,7 @@ class CurrentAccount:public Account{
     public:
     CurrentAccount(string e,int ty,int a,Date t) :Account(e,ty,a,t){
     }
-    CurrentAccount(const CurrentAccount & cu){
+    CurrentAccount(const CurrentAccount & cu):Account(cu){
         this->email = cu.email;
         this->account_number = cu.account_number;
         this->account_type = cu.account_type;
@@ -63,7 +63,7 @@ class SavingsAccount:public Account{
         expiry_date = t;
         expiry_date.year += 16;
     }
-    SavingsAccount (const SavingsAccount& sv){
+    SavingsAccount (const SavingsAccount& sv) : Account(sv){
         this->account_number = sv.account_number;
         this->account_type = sv.account_type;
         this->amount = sv.amount;
@@ -96,7 +96,7 @@ class LoanAccount:public Account{
         loan_duration = duration;
         amount_due = amount;
     } 
-    LoanAccount(const LoanAccount& la){
+    LoanAccount(const LoanAccount& la):Account(la){
         this->account_number = la.account_number;
         this->account_type = la.account_type;
         this->amount = la.amount;

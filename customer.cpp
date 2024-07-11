@@ -31,22 +31,24 @@ public:
         birth_date = d1;
         age = age1;
         customerId = getid(f);
-        if(!isValid(birth_date)){
-            cout << "Entered birth date is invalid" << endl;
-            cout << "You will be assigned a default birth date" << endl;
-            birth_date.day = 1 ;birth_date.month = 1;birth_date.year = 2000;
-        }
-        if(!is_phone_valid(phone_number)){
-            cout << "Your entered phone number is incorrect or does not match the desired format" << endl;
-        }
-        if(!is_Valid_Email(email)){
-            cout << "Your email is incorrect" << endl;
-            string email_new = firstName + "_" + lastName;
-            //email_new += count -'0';
-            //count++;
-            cout << "Try " << email_new << " as your new email" << endl;
-            email = email_new;
-        }   
+        if(firstName != ""){
+            if(!isValid(birth_date)){
+                cout << "Entered birth date is invalid" << endl;
+                cout << "You will be assigned a default birth date" << endl;
+                birth_date.day = 1 ;birth_date.month = 1;birth_date.year = 2000;
+            }
+            if(!is_phone_valid(phone_number)){
+                cout << "Your entered phone number is incorrect or does not match the desired format" << endl;
+            }
+            if(!is_Valid_Email(email)){
+                cout << "Your email is incorrect" << endl;
+                string email_new = firstName + "_" + lastName;
+                //email_new += count -'0';
+                //count++;
+                cout << "Try " << email_new << " as your new email" << endl;
+                email = email_new;
+            }  
+        } 
     }
     Customer(const Customer & ct){
         this->address = ct.address;
